@@ -29,10 +29,10 @@ class ArticleController extends Controller
     public function create()
     {
         $data=[
-            'title'=>'Tambah Siswa',
+            'title'=>'+ Article',
             // 'route' => route('biodata.store'),
         ];
-        return view('form_siswa', $data);
+        return view('admin.Article.create', $data);
     }
 
     /**
@@ -43,7 +43,13 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $article = new Article;
+        $article->title = $request->title;
+        $article->description = $request->description;
+        $article->slug=$request->slug;
+        $article->body=$request->body;
+        $article->save();
+        return redirect()->route('article.index');
     }
 
     /**
@@ -54,7 +60,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -65,7 +71,13 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = [
+            'title' => 'Edit Article',
+            'method' => 'PUT',
+            'route' => route('edit', $id),
+            'article' => Article::where('id', $id)->first(),
+        ];
+        return view('article.edit', $data);
     }
 
     /**
@@ -88,6 +100,8 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy =Article::where('id', $id);
+        $destroy->delete();
+        return redirect(route('article.index'));
     }
 }

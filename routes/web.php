@@ -23,8 +23,9 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/user-profile', [DashboardController::class, 'profile']);
 Route::get('/list-post', [PostController::class, 'index']);
-Route::get('/add-post', [PostController::class, 'create']);
+Route::get('/add-post', [ArticleController::class, 'create']);
+Route::post('/list-store', [ArticleController::class, 'store']);
 Route::get('/edit-post', [PostController::class, 'edit']);
 Route::get('/list-article', [ArticleController::class, 'index'])->name('article.index');
-Route::get('/list-destroy', [ArticleController::class, 'index'])->name('article.destroy');
-Route::get('/list-edit', [ArticleController::class, 'index'])->name('article.edit');
+Route::delete('/list-destroy/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');
+Route::get('/list-edit/{id}', [ArticleController::class, 'edit'])->name('article.edit');
